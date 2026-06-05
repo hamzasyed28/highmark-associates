@@ -5,7 +5,11 @@ let config = JSON.parse(localStorage.getItem('hm_config')) || defaultConfig;
 let blogs = JSON.parse(localStorage.getItem('hm_blogs')) || defaultBlogs;
 
 // Migrate old WhatsApp/Phone numbers if they are stored in localStorage
-if (config && config.contact && (config.contact.whatsapp === "+923178090809" || config.contact.phone === "+92-317-8090809")) {
+if (config && config.contact && (
+    (config.contact.whatsapp && config.contact.whatsapp.includes("3178090809")) ||
+    (config.contact.phone && config.contact.phone.includes("3178090809")) ||
+    (config.social && config.social.whatsappLink && config.social.whatsappLink.includes("3178090809"))
+)) {
     config.contact.phone = "+92-331-9422954";
     config.contact.whatsapp = "+923319422954";
     if (config.social) {
