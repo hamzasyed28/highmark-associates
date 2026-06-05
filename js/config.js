@@ -12,8 +12,8 @@ export const config = {
     logoPath: "assets/highmark.png"
   },
   contact: {
-    phone: "+92-317-8090809",
-    whatsapp: "+923178090809",
+    phone: "+92-331-9422954",
+    whatsapp: "+923319422954",
     email: "info@highmarkassociates.pk",
     address: "Aslam Business Square shop no L.G 01 E-11/2 Markaz Islamabad",
     hours: "Mon–Sat: 9:00 AM – 8:00 PM"
@@ -22,7 +22,7 @@ export const config = {
     facebook: "#",
     instagram: "#",
     youtube: "#",
-    whatsappLink: "https://wa.me/923178090809"
+    whatsappLink: "https://wa.me/923319422954"
   },
   seo: {
     title: "Highmark Associates | Premium Real Estate Agency in Islamabad",

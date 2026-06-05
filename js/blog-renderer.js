@@ -4,6 +4,16 @@ import { config as defaultConfig } from './config.js';
 let config = JSON.parse(localStorage.getItem('hm_config')) || defaultConfig;
 let blogs = JSON.parse(localStorage.getItem('hm_blogs')) || defaultBlogs;
 
+// Migrate old WhatsApp/Phone numbers if they are stored in localStorage
+if (config && config.contact && (config.contact.whatsapp === "+923178090809" || config.contact.phone === "+92-317-8090809")) {
+    config.contact.phone = "+92-331-9422954";
+    config.contact.whatsapp = "+923319422954";
+    if (config.social) {
+        config.social.whatsappLink = "https://wa.me/923319422954";
+    }
+    localStorage.setItem('hm_config', JSON.stringify(config));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initBrandInfo();
     initNavbar();

@@ -6,6 +6,16 @@ let listings = JSON.parse(localStorage.getItem('hm_listings')) || defaultListing
 let config = JSON.parse(localStorage.getItem('hm_config')) || defaultConfig;
 let blogs = JSON.parse(localStorage.getItem('hm_blogs')) || defaultBlogs;
 
+// Migrate old WhatsApp/Phone numbers if they are stored in localStorage
+if (config && config.contact && (config.contact.whatsapp === "+923178090809" || config.contact.phone === "+92-317-8090809")) {
+    config.contact.phone = "+92-331-9422954";
+    config.contact.whatsapp = "+923319422954";
+    if (config.social) {
+        config.social.whatsappLink = "https://wa.me/923319422954";
+    }
+    localStorage.setItem('hm_config', JSON.stringify(config));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initBrandInfo();
     initPropertyGrid();
@@ -113,7 +123,7 @@ const renderProperties = (filters = 'all') => {
         whatsappQuery += ". Can you help me find something?";
 
         const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sectorQuery || 'Islamabad Real Estate')}`;
-        const waLink = `https://wa.me/923178090809?text=${encodeURIComponent(whatsappQuery)}`;
+        const waLink = `https://wa.me/${config.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(whatsappQuery)}`;
 
         grid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: var(--bg-card); border: 1px dashed rgba(184, 150, 62, 0.3); border-radius: var(--radius);">
