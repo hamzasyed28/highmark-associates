@@ -164,7 +164,7 @@ const renderProperties = (filters = 'all') => {
                     </span>
                     ${p.tags.map(tag => `<span class="badge badge-accent">${tag}</span>`).join('')}
                 </div>
-                <div class="card-save" onclick="this.textContent = this.textContent === '🤍' ? '❤️' : '🤍'">🤍</div>
+                <div class="card-save" onclick="event.stopPropagation();this.textContent = this.textContent === '🤍' ? '❤️' : '🤍'">🤍</div>
             </div>
             <div class="card-body">
                 <div class="card-price">${p.price} ${p.priceNote ? `<span>${p.priceNote}</span>` : ''}</div>
@@ -181,24 +181,28 @@ const renderProperties = (filters = 'all') => {
                         </div>
                     `).join('')}
                 </div>
+                <div style="padding-top:1rem;border-top:1px solid rgba(255,255,255,0.05);margin-top:1rem;display:flex;gap:0.5rem;">
+                    <a href="property-detail.html?id=${p.id}" onclick="event.stopPropagation()" style="flex:1;text-align:center;padding:0.6rem;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--gold);color:var(--gold);border-radius:2px;transition:var(--transition);" onmouseover="this.style.background='var(--gold)';this.style.color='white'" onmouseout="this.style.background='';this.style.color='var(--gold)'">View Details</a>
+                    <a href="https://wa.me/923319422954?text=${encodeURIComponent('Hi Highmark Associates, I am interested in: ' + p.title + ' (' + p.price + ') at ' + p.location)}" target="_blank" onclick="event.stopPropagation()" style="flex:1;text-align:center;padding:0.6rem;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:var(--accent-green);color:white;border-radius:2px;border:1px solid transparent;transition:var(--transition);">WhatsApp</a>
+                </div>
             </div>
         `;
         
         card.style.cursor = 'pointer';
         
-        const openModal = (e) => {
-            // Don't open if tapping the heart save button
-            if (e.target.classList.contains('card-save') || e.target.closest('.card-save')) return;
-            window.openPropertyModal(p);
+        const openDetail = (e) => {
+            // Don't navigate if tapping the heart save button or action links
+            if (e.target.closest('.card-save') || e.target.closest('a')) return;
+            window.location.href = `property-detail.html?id=${p.id}`;
         };
 
-        card.addEventListener('click', openModal);
+        card.addEventListener('click', openDetail);
         // Explicit touchend for mobile safari / android browsers
         let touchMoved = false;
         card.addEventListener('touchstart', () => { touchMoved = false; }, { passive: true });
         card.addEventListener('touchmove', () => { touchMoved = true; }, { passive: true });
         card.addEventListener('touchend', (e) => {
-            if (!touchMoved) openModal(e);
+            if (!touchMoved) openDetail(e);
         });
 
         grid.appendChild(card);
@@ -366,7 +370,7 @@ const initPropertyModal = () => {
         typeBadge.textContent = p.category === 'sale' ? 'For Sale' : 'For Rent';
 
         const waBase = config.social && config.social.whatsappLink ? config.social.whatsappLink : `https://wa.me/${config.contact.whatsapp.replace(/[^0-9]/g, '')}`;
-        const waText = encodeURIComponent(`Hi Highmark Associates, I am interested in your property: *${p.title}* (${p.price}). Please send me more details. Location: ${p.location}`);
+        const waText = encodeURIComponent(`Hi Highmark Associates, I am interested in your property: *${p.title}* (${p.price}). Please send me more details. Location: ${p.location}. Thank you!`);
         document.getElementById('pmodalWhatsApp').href = `${waBase}?text=${waText}`;
 
         modal.classList.add('open');
