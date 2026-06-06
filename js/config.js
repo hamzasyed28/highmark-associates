@@ -16,7 +16,7 @@ export const config = {
     whatsapp: "+923319422954",
     email: "info@highmarkrealestate.com",
     address: "Aslam Business Square shop no L.G 01 E-11/2 Markaz Islamabad",
-    hours: "Mon–Sat: 9:00 AM – 8:00 PM"
+    hours: "Mon–Sat: 10:00 AM – 11:00 PM"
   },
   social: {
     facebook: "#",
