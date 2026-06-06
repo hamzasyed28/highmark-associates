@@ -21,7 +21,8 @@ export const listings = [
       baths: '6'
     },
     tags: ['Margalla View', 'CDA Approved'],
-    featured: true
+    featured: true,
+    investmentBadge: 'Overseas Favourite'
   },
   {
     id: 2,
@@ -55,7 +56,8 @@ export const listings = [
       usage: 'Commercial'
     },
     tags: ['Prime Location', 'CDA Approved'],
-    featured: true
+    featured: true,
+    investmentBadge: 'High ROI'
   },
   {
     id: 4,

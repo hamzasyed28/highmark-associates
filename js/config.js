@@ -14,7 +14,7 @@ export const config = {
   contact: {
     phone: "+92-331-9422954",
     whatsapp: "+923319422954",
-    email: "info@highmarkassociates.pk",
+    email: "info@highmarkrealestate.com",
     address: "Aslam Business Square shop no L.G 01 E-11/2 Markaz Islamabad",
     hours: "Mon–Sat: 9:00 AM – 8:00 PM"
   },

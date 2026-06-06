@@ -3,43 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us | Highmark Associates — Islamabad Real Estate</title>
-  <meta name="description" content="Contact Highmark Associates for expert real estate advice. Reach us via WhatsApp, phone, or visit our office at E-11/2 Markaz, Islamabad." />
+  <title>Contact Highmark Associates | Real Estate Islamabad — E-11/2 Markaz</title>
+  <meta name="description" content="Contact Highmark Associates for expert real estate advice in Islamabad. Visit our office at Aslam Business Square, E-11/2 Markaz. Call or WhatsApp +92-331-9422954." />
+  <link rel="canonical" href="https://highmarkrealestates.com/contact.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/style.css?v=2.0" />
+  <link rel="stylesheet" href="./css/style.css?v=3.0" />
   <style>
-    .contact-info-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 5rem; }
+    /* ── Contact Info Cards ── */
+    .contact-info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 5rem; }
     .info-card {
-      padding: 2.5rem; background: var(--bg-card);
+      padding: 2.25rem 1.75rem; background: var(--bg-card);
       border: 1px solid var(--border-light); text-align: center;
-      transition: var(--transition);
+      transition: var(--transition); border-bottom: 2px solid transparent;
     }
-    .info-card:hover { border-color: rgba(184,150,62,0.35); transform: translateY(-4px); }
-    .info-card__icon { font-size: 2rem; color: var(--gold); margin-bottom: 1.25rem; }
-    .info-card__label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
-    .info-card__value { font-size: 1rem; color: var(--white); line-height: 1.6; }
+    .info-card:hover { border-bottom-color: var(--gold); transform: translateY(-4px); }
+    .info-card__icon { font-size: 2rem; margin-bottom: 1.1rem; }
+    .info-card__label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .info-card__value { font-size: 0.9rem; color: var(--white); line-height: 1.65; }
     .info-card__value a { color: var(--white); }
     .info-card__value a:hover { color: var(--gold); }
-    .map-container { 
+
+    /* ── Contact Layout ── */
+    .contact-main-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start; }
+
+    /* ── Services list ── */
+    .service-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.5rem; }
+    .service-list li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem; color: var(--text-dim); }
+    .service-list li span { color: var(--gold); font-size: 1rem; }
+
+    /* ── Trust badges ── */
+    .contact-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 2rem; }
+    .contact-trust-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; color: var(--text-dim); padding: 0.6rem 0.8rem; background: var(--bg-card); border: 1px solid var(--border-light); border-left: 2px solid var(--gold); }
+
+    /* ── Map ── */
+    .map-wrapper { border: 1px solid var(--border-light); overflow: hidden; border-radius: var(--radius); }
+    .map-wrapper iframe { width: 100%; height: 420px; display: block; border: none; filter: grayscale(20%) contrast(1.05); }
+
+    /* ── Team / Agents ── */
+    .agents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .agent-card {
       background: var(--bg-card); border: 1px solid var(--border-light);
-      height: 400px; display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 1rem; color: var(--text-muted);
-      margin-bottom: 5rem;
+      border-radius: var(--radius); overflow: hidden;
+      transition: var(--transition); text-align: center;
     }
+    .agent-card:hover { border-color: rgba(184,150,62,0.35); transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.4); }
+    .agent-img-wrap { position: relative; height: 240px; background: var(--bg-secondary); overflow: hidden; }
+    .agent-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .agent-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 5rem; color: var(--text-muted); }
+    .agent-body { padding: 1.75rem 1.5rem; }
+    .agent-name { font-family: var(--font-display); font-size: 1.3rem; font-weight: 500; margin-bottom: 0.3rem; }
+    .agent-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; display: block; }
+    .agent-speciality { font-size: 0.83rem; color: var(--text-dim); margin-bottom: 1.5rem; line-height: 1.6; }
+    .agent-actions { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .agent-wa-btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.65rem 1.1rem; background: var(--accent-green); color: white;
+      border-radius: 2px; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; transition: var(--transition);
+      text-decoration: none;
+    }
+    .agent-wa-btn:hover { opacity: 0.88; transform: scale(1.03); }
+    .agent-call-btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.65rem 1.1rem; border: 1px solid var(--gold); color: var(--gold);
+      border-radius: 2px; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; transition: var(--transition);
+      text-decoration: none;
+    }
+    .agent-call-btn:hover { background: var(--gold); color: var(--bg-dark); }
+
+    /* ── FAQ ── */
     .faq-item { border-bottom: 1px solid var(--border-light); }
-    .faq-q { 
-      padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      font-size: 1rem; font-weight: 500; color: var(--white);
-    }
+    .faq-q { padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 500; color: var(--white); transition: var(--transition); }
     .faq-q:hover { color: var(--gold); }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
     .faq-a p { padding-bottom: 1.5rem; color: var(--text-dim); font-size: 0.92rem; line-height: 1.8; }
-    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-item.open .faq-a { max-height: 300px; }
     .faq-arrow { transition: transform 0.3s; color: var(--gold); font-size: 1.1rem; }
     .faq-item.open .faq-arrow { transform: rotate(45deg); }
-    @media (max-width: 768px) { .contact-info-cards { grid-template-columns: 1fr; } }
+
+    /* Responsive */
+    @media (max-width: 1100px) { .contact-info-grid { grid-template-columns: repeat(2, 1fr); } .contact-main-grid { grid-template-columns: 1fr; gap: 3rem; } .agents-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .contact-info-grid { grid-template-columns: 1fr; } .agents-grid { grid-template-columns: 1fr; } .contact-trust { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -49,6 +96,8 @@
   <span class="mobile-close">✕</span>
   <a href="index.html">Home</a>
   <a href="properties.html">Properties</a>
+  <a href="services.html">Services</a>
+  <a href="areas.html">Areas Guide</a>
   <a href="about.html">About</a>
   <a href="blog.html">Blog</a>
   <a href="contact.html">Contact</a>
@@ -64,12 +113,14 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="properties.html">Properties</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="areas.html">Areas Guide</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html" style="color:var(--gold);">Contact</a></li>
       </ul>
-      <a href="https://wa.me/923319422954" target="_blank" class="nav-cta conf-whatsapp-link" style="display:flex;align-items:center;gap:0.8rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.011 2c-5.505 0-9.989 4.484-9.989 9.989 0 1.758.459 3.41 1.259 4.85l-1.336 4.882 4.996-1.311c1.405.764 3.003 1.2 4.693 1.2 5.505 0 10.011-4.484 10.011-9.989 0-5.505-4.506-9.989-10.035-9.989zm5.304 14.125c-.225.63-1.3 1.233-1.787 1.309-.434.067-.98.125-2.825-.615-2.355-.945-3.87-3.325-3.987-3.484-.117-.16-1.025-1.349-1.025-2.583a2.64 2.64 0 01.815-1.956c.258-.258.558-.325.742-.325.183 0 .367.009.525.017.167.008.392-.067.617.475.225.542.775 1.884.842 2.017.067.133.111.291.017.475-.083.183-.133.291-.258.441-.125.15-.262.333-.375.45-.125.133-.25.275-.108.517.142.242.633 1.042 1.366 1.692.942.841 1.734 1.1 1.984 1.225.25.125.392.108.542-.058.15-.167.642-.75.815-1.008.167-.258.333-.217.558-.133.225.083 1.433.675 1.683.8.25.125.417.183.475.291.058.108.058.625-.167 1.258z"/></svg>
+      <a href="https://wa.me/923319422954" target="_blank" class="nav-cta conf-whatsapp-link" style="display:flex;align-items:center;gap:0.6rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp
       </a>
       <button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -87,11 +138,11 @@
     </div>
     <span class="overline">Get In Touch</span>
     <div class="gold-line left"></div>
-    <h1 style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;max-width:650px;">
-      Let's Find Your <em style="color:var(--gold);font-style:italic;">Dream Property</em>
+    <h1 style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;max-width:680px;">
+      Let's Find the Right Property <em style="color:var(--gold);font-style:italic;">for You</em>
     </h1>
-    <p style="color:var(--text-dim);margin-top:1.5rem;max-width:580px;font-weight:300;line-height:1.8;">
-      Our expert consultants are available 7 days a week — via WhatsApp, phone, or in-person at our E-11/2 Markaz office.
+    <p style="color:var(--text-dim);margin-top:1.5rem;max-width:600px;font-weight:300;line-height:1.8;">
+      Whether you're looking for a family home, investment property, commercial opportunity, or professional real estate advice — our team is ready to assist.
     </p>
   </div>
 </div>
@@ -99,124 +150,184 @@
 <!-- CONTACT INFO CARDS -->
 <section class="section" style="background:var(--bg-darker);padding-bottom:2rem;">
   <div class="container">
-    <div class="contact-info-cards animate-on-scroll">
-      <a href="https://wa.me/923319422954" target="_blank" class="info-card conf-whatsapp-link" style="display:block;text-decoration:none;">
-        <div class="info-card__icon">💬</div>
-        <div class="info-card__label">WhatsApp</div>
-        <div class="info-card__value">+92-331-9422954<br><span style="font-size:0.8rem;color:var(--text-muted);">Available 7 days a week</span></div>
-      </a>
-      <a href="tel:+923319422954" class="info-card" style="display:block;text-decoration:none;">
-        <div class="info-card__icon">📞</div>
-        <div class="info-card__label">Phone</div>
-        <div class="info-card__value conf-phone">+92-331-9422954<br><span style="font-size:0.8rem;color:var(--text-muted);">Mon–Sat: 9AM – 8PM</span></div>
-      </a>
-      <a href="https://maps.app.goo.gl/c1EBoHrjyGPf2HCM7" target="_blank" class="info-card" style="display:block;text-decoration:none;">
+    <div class="contact-info-grid animate-on-scroll">
+
+      <!-- Office Address -->
+      <a href="https://www.google.com/maps/place/High+Mark+Associates,+F.E.C.H.S.+FECHS+E+11%2F2+E-11,+Islamabad,+44000/data=!4m2!3m1!1s0x38dfbd9ed70ade23:0x10c7b1bbf0f21d43!18m1!1e1?utm_source=mstt_1&amp;entry=gps&amp;coh=192189&amp;g_ep=CAESBzI2LjIyLjQYACCenQoqgQEsOTQyNjc3MjcsOTQyOTIxOTUsOTQyOTk1MzIsMTAwNzk2NDk4LDEwMDc5Nzc2MSwxMDA3OTY1MzUsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk2MTlCAlBL&amp;skid=d504259f-5119-4144-952f-fc9b73e2237a" target="_blank" class="info-card" style="text-decoration:none;">
         <div class="info-card__icon">📍</div>
         <div class="info-card__label">Office Address</div>
-        <div class="info-card__value conf-address">Aslam Business Square, Shop No. LG-01, E-11/2 Markaz, Islamabad</div>
+        <div class="info-card__value conf-address">Aslam Business Square, Shop No. L.G 01<br>E-11/2 Markaz, Islamabad</div>
       </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/923319422954" target="_blank" class="info-card conf-whatsapp-link" style="text-decoration:none;">
+        <div class="info-card__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="info-card__label">Phone & WhatsApp</div>
+        <div class="info-card__value conf-phone">+92-331-9422954<br><span style="font-size:0.78rem;color:var(--text-muted);">Chat on WhatsApp</span></div>
+      </a>
+
+      <!-- Phone -->
+      <a href="tel:+923319422954" class="info-card" style="text-decoration:none;">
+        <div class="info-card__icon">📞</div>
+        <div class="info-card__label">Direct Call</div>
+        <div class="info-card__value conf-phone">+92-331-9422954<br><span style="font-size:0.78rem;color:var(--text-muted);">Tap to call</span></div>
+      </a>
+
+      <!-- Business Hours -->
+      <div class="info-card">
+        <div class="info-card__icon">🕐</div>
+        <div class="info-card__label">Business Hours</div>
+        <div class="info-card__value">
+          Mon – Sat<br>
+          <strong>9:00 AM – 11:00 PM</strong><br>
+          <span style="font-size:0.8rem;color:var(--text-muted);">Sunday: By Appointment</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- CONTACT FORM & INFO -->
-    <div class="contact-grid-layout animate-on-scroll">
+    <!-- CONTACT FORM + HOW WE HELP -->
+    <div class="contact-main-grid animate-on-scroll">
+
+      <!-- Left: How we help + Trust -->
       <div>
-        <span class="overline">Send a Message</span>
-        <h2 style="font-family:var(--font-display);font-size:2.5rem;font-weight:400;margin-bottom:2rem;">How Can We <em style="color:var(--gold);font-style:italic;">Help You?</em></h2>
-        <p style="color:var(--text-dim);margin-bottom:3rem;font-weight:300;line-height:1.8;">
-          Fill in the form and one of our property consultants will call you back within a few hours.
+        <span class="overline">How Can We Help?</span>
+        <div class="gold-line left"></div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;margin-bottom:1.5rem;">
+          Send Us an <em style="color:var(--gold);font-style:italic;">Inquiry</em>
+        </h2>
+        <p style="color:var(--text-dim);margin-bottom:1rem;font-weight:300;line-height:1.8;font-size:0.93rem;">
+          Use the contact form and our team will respond as soon as possible. Or speak directly with a property consultant for guidance tailored to your requirements.
         </p>
 
-        <div style="margin-bottom:2.5rem;">
-          <div class="contact-item">
-            <div class="contact-icon">🕐</div>
-            <div>
-              <h4 style="font-size:0.72rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;">Office Hours</h4>
-              <p style="color:var(--white);">Monday – Saturday: 9:00 AM – 8:00 PM</p>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">✉</div>
-            <div>
-              <h4 style="font-size:0.72rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;">Email</h4>
-              <a href="mailto:info@highmarkassociates.pk" style="color:var(--white);">info@highmarkassociates.pk</a>
-            </div>
-          </div>
+        <ul class="service-list">
+          <li><span>✓</span> Buy Property in Islamabad</li>
+          <li><span>✓</span> Sell Your Property</li>
+          <li><span>✓</span> Commercial Property Investments</li>
+          <li><span>✓</span> Property Verification</li>
+          <li><span>✓</span> Overseas Pakistani Services</li>
+          <li><span>✓</span> Investment Consultancy</li>
+        </ul>
+
+        <div class="contact-trust">
+          <div class="contact-trust-item">✓ Verified Listings</div>
+          <div class="contact-trust-item">✓ CDA Approved</div>
+          <div class="contact-trust-item">✓ Overseas Support</div>
+          <div class="contact-trust-item">✓ 15+ Years Experience</div>
         </div>
 
-        <!-- WhatsApp CTA -->
-        <div style="padding:2rem;background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.2);border-radius:var(--radius);">
-          <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:1rem;">Prefer to chat directly? We respond on WhatsApp within minutes.</p>
-          <a href="https://wa.me/923319422954?text=Hi Highmark Associates, I'd like to enquire about your properties." target="_blank" class="btn-conv conf-whatsapp-link" style="background:var(--accent-green);display:inline-flex;align-items:center;gap:0.8rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.011 2c-5.505 0-9.989 4.484-9.989 9.989 0 1.758.459 3.41 1.259 4.85l-1.336 4.882 4.996-1.311c1.405.764 3.003 1.2 4.693 1.2 5.505 0 10.011-4.484 10.011-9.989 0-5.505-4.506-9.989-10.035-9.989zm5.304 14.125c-.225.63-1.3 1.233-1.787 1.309-.434.067-.98.125-2.825-.615-2.355-.945-3.87-3.325-3.987-3.484-.117-.16-1.025-1.349-1.025-2.583a2.64 2.64 0 01.815-1.956c.258-.258.558-.325.742-.325.183 0 .367.009.525.017.167.008.392-.067.617.475.225.542.775 1.884.842 2.017.067.133.111.291.017.475-.083.183-.133.291-.258.441-.125.15-.262.333-.375.45-.125.133-.25.275-.108.517.142.242.633 1.042 1.366 1.692.942.841 1.734 1.1 1.984 1.225.25.125.392.108.542-.058.15-.167.642-.75.815-1.008.167-.258.333-.217.558-.133.225.083 1.433.675 1.683.8.25.125.417.183.475.291.058.108.058.625-.167 1.258z"/></svg>
+        <!-- WhatsApp quick CTA -->
+        <div style="margin-top:2.5rem;padding:2rem;background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.2);border-radius:var(--radius);">
+          <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;font-weight:300;">Need immediate assistance? Chat directly with a consultant.</p>
+          <a href="https://wa.me/923319422954?text=Hi%20Highmark%20Associates%2C%20I%27d%20like%20to%20enquire%20about%20a%20property." target="_blank" class="btn-whatsapp conf-whatsapp-link" style="display:inline-flex;align-items:center;gap:0.7rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Chat on WhatsApp Now
           </a>
         </div>
       </div>
 
+      <!-- Right: Contact Form -->
       <div>
         <form id="contactForm" class="contact-form-layout">
           <div class="contact-form-row">
-            <input type="text" placeholder="Full Name" required class="contact-form-input" />
-            <input type="tel" placeholder="Phone Number" required class="contact-form-input" />
+            <input type="text" id="cName" placeholder="Full Name *" required class="contact-form-input" />
+            <input type="tel" id="cPhone" placeholder="Phone Number *" required class="contact-form-input" />
           </div>
-          <input type="email" placeholder="Email Address" class="contact-form-input" />
-          <select class="contact-form-input">
-            <option>Select Enquiry Type</option>
-            <option>Buying Property</option>
-            <option>Renting Property</option>
-            <option>Selling Property</option>
-            <option>Commercial Space</option>
-            <option>Investment Advice</option>
+          <input type="email" id="cEmail" placeholder="Email Address" class="contact-form-input" />
+          <select id="cType" class="contact-form-input">
+            <option value="">Property Type / Enquiry</option>
+            <option>Buy Property in Islamabad</option>
+            <option>Sell My Property</option>
+            <option>Commercial Property Investment</option>
             <option>Property Verification</option>
             <option>Overseas Pakistani Services</option>
+            <option>Investment Consultancy</option>
+            <option>Rental Property</option>
           </select>
-          <select class="contact-form-input">
-            <option>Preferred Location</option>
+          <select id="cArea" class="contact-form-input">
+            <option value="">Preferred Area</option>
             <option>E-11 Islamabad</option>
             <option>D-12 Islamabad</option>
             <option>F-10 Islamabad</option>
             <option>F-11 Islamabad</option>
             <option>DHA Phase 2</option>
             <option>Bahria Town Rawalpindi</option>
-            <option>Other</option>
+            <option>Other / Flexible</option>
           </select>
-          <textarea rows="5" placeholder="Your Message / Property Requirements" class="contact-form-input"></textarea>
-          <button type="submit" class="btn-conv" style="width:100%;justify-content:center;">Send Enquiry →</button>
+          <textarea id="cMsg" rows="5" placeholder="Your Message / Property Requirements" class="contact-form-input"></textarea>
+          <button type="submit" class="btn-conv" id="submitContactBtn" style="width:100%;justify-content:center;">
+            Schedule a Free Consultation →
+          </button>
         </form>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MAP -->
+<!-- GOOGLE MAP EMBED -->
 <section style="background:var(--bg-dark);padding:5rem 0;">
   <div class="container">
     <div class="section-header animate-on-scroll" style="margin-bottom:3rem;">
-      <span class="overline">Find Us</span>
+      <span class="overline">Location Map</span>
       <div class="gold-line"></div>
-      <h2 style="font-family:var(--font-display);font-size:2.5rem;font-weight:400;">Visit Our <em style="color:var(--gold);font-style:italic;">Office</em></h2>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:400;">
+        Visit Our <em style="color:var(--gold);font-style:italic;">Office</em>
+      </h2>
+      <p>Aslam Business Square, Shop No. L.G 01 — E-11/2 Markaz, Islamabad</p>
     </div>
-    <div class="map-container animate-on-scroll">
-      <div style="font-size:3rem;">📍</div>
-      <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:400;margin-bottom:0.5rem;">Highmark Associates</h3>
-      <p style="color:var(--text-dim);text-align:center;max-width:400px;font-size:0.9rem;">Aslam Business Square, Shop No. LG-01<br>E-11/2 Markaz, Islamabad</p>
-      <a href="https://maps.app.goo.gl/c1EBoHrjyGPf2HCM7" target="_blank" class="btn btn-gold" style="margin-top:1rem;">Open in Google Maps</a>
+    <div class="map-wrapper animate-on-scroll">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3320.6157!2d72.9888!3d33.7215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbd9ed70ade23%3A0x10c7b1bbf0f21d43!2sHigh%20Mark%20Associates!5e0!3m2!1sen!2spk!4v1717848195000"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Highmark Associates Office Location - E-11/2 Markaz Islamabad">
+      </iframe>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="https://www.google.com/maps/place/High+Mark+Associates,+F.E.C.H.S.+FECHS+E+11%2F2+E-11,+Islamabad,+44000/data=!4m2!3m1!1s0x38dfbd9ed70ade23:0x10c7b1bbf0f21d43!18m1!1e1?utm_source=mstt_1&amp;entry=gps&amp;coh=192189&amp;g_ep=CAESBzI2LjIyLjQYACCenQoqgQEsOTQyNjc3MjcsOTQyOTIxOTUsOTQyOTk1MzIsMTAwNzk2NDk4LDEwMDc5Nzc2MSwxMDA3OTY1MzUsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk2MTlCAlBL&amp;skid=d504259f-5119-4144-952f-fc9b73e2237a" target="_blank" class="btn btn-gold" style="display:inline-flex;align-items:center;gap:0.6rem;">
+        📍 Open in Google Maps
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM AGENTS SECTION -->
+<section class="section" style="background:var(--bg-darker);">
+  <div class="container">
+    <div class="section-header animate-on-scroll" style="margin-bottom:4rem;">
+      <span class="overline">Meet the Team</span>
+      <div class="gold-line"></div>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;">
+        Our Property <em style="color:var(--gold);font-style:italic;">Consultants</em>
+      </h2>
+      <p>Connect directly with our experts — each specialist in Islamabad's prime property sectors.</p>
+    </div>
+    <div id="agentsGrid" class="agents-grid animate-on-scroll">
+      <!-- Agents rendered via JS from agents.js -->
+      <div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);font-size:0.9rem;">
+        Loading team members...
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="section" style="background:var(--bg-darker);">
+<section class="section" style="background:var(--bg-dark);">
   <div class="container" style="max-width:860px;">
     <div class="section-header animate-on-scroll" style="margin-bottom:4rem;">
-      <span class="overline">FAQ</span>
+      <span class="overline">Common Questions</span>
       <div class="gold-line"></div>
-      <h2 style="font-family:var(--font-display);font-size:2.5rem;font-weight:400;">Frequently Asked <em style="color:var(--gold);font-style:italic;">Questions</em></h2>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:400;">
+        Frequently Asked <em style="color:var(--gold);font-style:italic;">Questions</em>
+      </h2>
     </div>
     <div class="animate-on-scroll">
       <div class="faq-item">
         <div class="faq-q">What areas does Highmark Associates cover? <span class="faq-arrow">+</span></div>
-        <div class="faq-a"><p>We specialize in E-11, D-12, F-10, F-11 in Islamabad, as well as DHA Phase 2 Islamabad, and Bahria Town Rawalpindi. We also handle properties in selected other sectors of Islamabad on request.</p></div>
+        <div class="faq-a"><p>We specialize in E-11, D-12, F-10, F-11 in Islamabad, as well as DHA Phase 2 Islamabad and Bahria Town Rawalpindi. We also handle properties in selected other sectors on request.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I buy property remotely as an overseas Pakistani? <span class="faq-arrow">+</span></div>
@@ -228,7 +339,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">What are your agency fees? <span class="faq-arrow">+</span></div>
-        <div class="faq-a"><p>Our fees are transparent and discussed upfront before any commitment. We typically charge a standard brokerage commission only upon successful transaction completion. Contact us directly to discuss your specific requirements.</p></div>
+        <div class="faq-a"><p>Our fees are transparent and discussed upfront before any commitment. We typically charge a standard brokerage commission only upon successful transaction completion. Contact us directly for details specific to your requirements.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">How quickly can I get a property valuation? <span class="faq-arrow">+</span></div>
@@ -264,18 +375,21 @@
       <div class="footer-links">
         <h4>Sectors</h4>
         <ul>
-          <li><a>E-11 Islamabad</a></li>
-          <li><a>D-12 Islamabad</a></li>
-          <li><a>DHA Phase 2</a></li>
-          <li><a>F-10 / F-11</a></li>
+          <li><a href="areas.html#e11">E-11 Islamabad</a></li>
+          <li><a href="areas.html#d12">D-12 Islamabad</a></li>
+          <li><a href="areas.html#dha">DHA Phase 2</a></li>
+          <li><a href="areas.html#f10">F-10 / F-11</a></li>
           <li><a>Bahria Town</a></li>
         </ul>
       </div>
       <div class="footer-links">
         <h4>Contact</h4>
-        <div class="contact-item"><span class="contact-icon">📍</span><span class="conf-address">E-11/2 Markaz, Islamabad</span></div>
-        <div class="contact-item"><span class="contact-icon">📞</span><span class="conf-phone">+92-331-9422954</span></div>
-        <div class="contact-item"><span class="contact-icon">✉</span><span>info@highmarkassociates.pk</span></div>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <a href="https://www.google.com/maps/place/High+Mark+Associates,+F.E.C.H.S.+FECHS+E+11%2F2+E-11,+Islamabad,+44000/data=!4m2!3m1!1s0x38dfbd9ed70ade23:0x10c7b1bbf0f21d43!18m1!1e1?utm_source=mstt_1&amp;entry=gps&amp;coh=192189&amp;g_ep=CAESBzI2LjIyLjQYACCenQoqgQEsOTQyNjc3MjcsOTQyOTIxOTUsOTQyOTk1MzIsMTAwNzk2NDk4LDEwMDc5Nzc2MSwxMDA3OTY1MzUsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk2MTlCAlBL&amp;skid=d504259f-5119-4144-952f-fc9b73e2237a" target="_blank" class="conf-address" style="color:var(--text-dim);">Aslam Business Square, E-11/2 Markaz, Islamabad</a>
+        </div>
+        <div class="contact-item"><span class="contact-icon">📞</span><a href="tel:+923319422954" class="conf-phone" style="color:var(--text-dim);">+92-331-9422954</a></div>
+        <div class="contact-item"><span class="contact-icon">✉</span><a href="mailto:info@highmarkrealestate.com" class="conf-email" style="color:var(--text-dim);text-decoration:none;">info@highmarkrealestate.com</a></div>
       </div>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
@@ -288,23 +402,98 @@
   </div>
 </footer>
 
-<!-- WHATSAPP FLOAT -->
+<!-- WHATSAPP FLOAT — Official Logo -->
 <div class="whatsapp-float">
   <div class="wa-label">Chat with an Expert</div>
   <a href="https://wa.me/923319422954" target="_blank" class="wa-btn conf-whatsapp-link" aria-label="Chat on WhatsApp">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M12.011 2c-5.505 0-9.989 4.484-9.989 9.989 0 1.758.459 3.41 1.259 4.85l-1.336 4.882 4.996-1.311c1.405.764 3.003 1.2 4.693 1.2 5.505 0 10.011-4.484 10.011-9.989 0-5.505-4.506-9.989-10.035-9.989zm5.304 14.125c-.225.63-1.3 1.233-1.787 1.309-.434.067-.98.125-2.825-.615-2.355-.945-3.87-3.325-3.987-3.484-.117-.16-1.025-1.349-1.025-2.583a2.64 2.64 0 01.815-1.956c.258-.258.558-.325.742-.325.183 0 .367.009.525.017.167.008.392-.067.617.475.225.542.775 1.884.842 2.017.067.133.111.291.017.475-.083.183-.133.291-.258.441-.125.15-.262.333-.375.45-.125.133-.25.275-.108.517.142.242.633 1.042 1.366 1.692.942.841 1.734 1.1 1.984 1.225.25.125.392.108.542-.058.15-.167.642-.75.815-1.008.167-.258.333-.217.558-.133.225.083 1.433.675 1.683.8.25.125.417.183.475.291.058.108.058.625-.167 1.258z"/></svg>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 </div>
 
-<script type="module" src="./js/main.js?v=2.0"></script>
+<script type="module" src="./js/main.js?v=3.1"></script>
+<script type="module">
+  import { agents as defaultAgents } from './js/agents.js';
+
+  // Use localStorage agents if available (from admin edits), else fall back to defaults
+  let agents = JSON.parse(localStorage.getItem('hm_agents')) || defaultAgents;
+
+  function renderAgents() {
+    const grid = document.getElementById('agentsGrid');
+    if (!grid) return;
+
+    if (!agents || agents.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--text-muted);">No agents added yet. Visit <a href="admin.html" style="color:var(--gold);">Admin Panel</a> to add team members.</div>`;
+      return;
+    }
+
+    grid.innerHTML = agents.map(agent => `
+      <div class="agent-card">
+        <div class="agent-img-wrap">
+          ${agent.image
+            ? `<img src="${agent.image}" alt="${agent.name}" loading="lazy" />`
+            : `<div class="agent-img-placeholder">👤</div>`}
+        </div>
+        <div class="agent-body">
+          <div class="agent-name">${agent.name}</div>
+          <span class="agent-title">${agent.title}</span>
+          <p class="agent-speciality">${agent.speciality}</p>
+          <div class="agent-actions">
+            <a href="https://wa.me/${agent.whatsapp}?text=Hi%20${encodeURIComponent(agent.name)}%2C%20I%20would%20like%20to%20enquire%20about%20a%20property." target="_blank" class="agent-wa-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+            <a href="tel:${agent.phone}" class="agent-call-btn">📞 Call</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', renderAgents);
+</script>
 <script>
   // FAQ accordion
-  document.querySelectorAll('.faq-q').forEach(q => {
-    q.addEventListener('click', () => {
-      const item = q.parentElement;
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+    const hamburger = document.querySelector('.nav-hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeBtn = document.querySelector('.mobile-close');
+    hamburger?.addEventListener('click', () => { mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; });
+    closeBtn?.addEventListener('click', () => { mobileNav.classList.remove('open'); document.body.style.overflow = ''; });
+
+    // Scroll animations
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) el.classList.add('visible'); }), { threshold: 0.08 });
+      obs.observe(el);
+    });
+
+    // Contact form
+    const form = document.getElementById('contactForm');
+    const btn = document.getElementById('submitContactBtn');
+    form?.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('cName').value;
+      const phone = document.getElementById('cPhone').value;
+      const type = document.getElementById('cType').value;
+      const area = document.getElementById('cArea').value;
+      const msg = document.getElementById('cMsg').value;
+      const waText = encodeURIComponent(`Hi Highmark Associates,\n\nName: ${name}\nPhone: ${phone}\nEnquiry: ${type}\nPreferred Area: ${area}\nMessage: ${msg}`);
+      const orig = btn.textContent;
+      btn.textContent = 'Enquiry Sent! ✓';
+      btn.style.background = '#25D366';
+      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; form.reset(); }, 4000);
+      window.open(`https://wa.me/923319422954?text=${waText}`, '_blank');
     });
   });
 </script>

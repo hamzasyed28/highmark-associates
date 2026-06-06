@@ -43,6 +43,13 @@ const initBrandInfo = () => {
     });
     document.querySelectorAll('.conf-address').forEach(el => {
         el.textContent = config.contact.address;
+        if (el.tagName === 'A') {
+            el.href = "https://www.google.com/maps/place/High+Mark+Associates,+F.E.C.H.S.+FECHS+E+11%2F2+E-11,+Islamabad,+44000/data=!4m2!3m1!1s0x38dfbd9ed70ade23:0x10c7b1bbf0f21d43!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjIyLjQYACCenQoqgQEsOTQyNjc3MjcsOTQyOTk1MzIsMTAwNzk2NDk4LDEwMDc5Nzc2MSwxMDA3OTY1MzUsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk2MTlCAlBL&skid=d504259f-5119-4144-952f-fc9b73e2237a";
+        }
+    });
+    document.querySelectorAll('.conf-email').forEach(el => {
+        el.textContent = config.contact.email;
+        if (el.tagName === 'A') el.href = `mailto:${config.contact.email}`;
     });
     document.querySelectorAll('.conf-whatsapp-link').forEach(el => {
         if (el.tagName === 'A') el.href = config.social.whatsappLink;

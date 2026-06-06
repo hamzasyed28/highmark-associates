@@ -38,6 +38,8 @@
         <nav class="admin-nav">
             <button class="admin-nav-item active" data-tab="listingsTab">🏠 Manage Listings</button>
             <button class="admin-nav-item" data-tab="configTab">📱 Manage Credentials</button>
+            <button class="admin-nav-item" data-tab="ceoTab">👤 Manage CEO</button>
+            <button class="admin-nav-item" data-tab="agentsTab">👥 Manage Agents</button>
             <button class="admin-nav-item" data-tab="blogsTab">📰 Manage Blogs</button>
             <button class="admin-nav-item" data-tab="exportTab">💾 Export Code</button>
             <button class="admin-nav-item" id="logoutBtn" style="margin-top: auto; color: #ff4757;">🚪 Logout</button>
@@ -124,16 +126,79 @@
             </div>
         </section>
 
+        <!-- Tab: CEO -->
+        <section id="ceoTab" class="admin-tab-content">
+            <div class="config-grid">
+                <div class="config-card">
+                    <h3>CEO & Leadership Details</h3>
+                    <form id="ceoForm">
+                        <div class="form-group">
+                            <label>CEO / Founder Name</label>
+                            <input type="text" id="ceoNameInput" required placeholder="E.g. CEO Name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Designation / Title</label>
+                            <input type="text" id="ceoTitleInput" required placeholder="E.g. Founder & CEO" />
+                        </div>
+                        <div class="form-group">
+                            <label>Bio / Message Text</label>
+                            <textarea id="ceoBioInput" rows="6" required placeholder="Write bio/message here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>CEO Photo</label>
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem;">
+                                <img id="ceoImgPreview" src="" alt="CEO Image Preview" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px; display: none; background: rgba(255,255,255,0.05);" />
+                                <div>
+                                    <input type="file" id="ceoImgFileInput" accept="image/*" style="padding: 0; border: none; background: transparent; cursor: pointer; color: white;" />
+                                    <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 0.5rem;">Upload photo (will be compressed).</p>
+                                </div>
+                            </div>
+                            <input type="hidden" id="ceoImgInput" />
+                        </div>
+                        <button type="submit" class="btn-conv">Save CEO Details</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Agents -->
+        <section id="agentsTab" class="admin-tab-content">
+            <header class="admin-header" style="margin-bottom:2rem; padding-bottom:1rem; border-bottom:none; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="color:var(--text-white); margin: 0;">Manage Team Agents</h3>
+                <button class="btn-conv" id="addAgentBtn">+ Add New Agent</button>
+            </header>
+            <div class="table-container">
+                <table id="agentsTable">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Agent Name</th>
+                            <th>Title</th>
+                            <th>Phone</th>
+                            <th>WhatsApp</th>
+                            <th>Speciality</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agentsBody">
+                        <!-- Populated via admin.js -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- Tab: Export -->
         <section id="exportTab" class="admin-tab-content">
             <div class="export-card">
                 <span class="overline">Prepare for Deployment</span>
                 <h3>Generate Code Files</h3>
                 <p>After editing your website, click the buttons below to generate and download the updated code. Simply replace the old files in your hosting to make the changes live for everyone.</p>
-                <div class="export-actions">
+                <div class="export-actions" style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <button class="btn-conv" id="exportListings">Download listings.js</button>
                     <button class="btn-conv" id="exportConfig">Download config.js</button>
                     <button class="btn-conv" id="exportBlogs">Download blogs.js</button>
+                    <button class="btn-conv" id="exportAgents">Download agents.js</button>
+                    <button class="btn-conv" id="exportCeo">Download ceo.js</button>
                 </div>
                 <div class="export-preview">
                     <label>Preview Updated Code</label>
@@ -236,6 +301,55 @@
             <div class="modal-footer">
                 <button type="button" class="btn-outline" id="closeBlogModal">Cancel</button>
                 <button type="submit" class="btn-conv">Save Blog</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Add Agent -->
+<div id="agentModal" class="modal">
+    <div class="modal-content">
+        <h2 id="agentModalTitle">Add Team Agent</h2>
+        <form id="agentForm">
+            <input type="hidden" id="agentEditId" />
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Agent Name</label>
+                    <input type="text" id="aName" required placeholder="E.g. Hamza Syed" />
+                </div>
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" id="aTitle" required placeholder="E.g. Senior Property Consultant" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="aPhone" required placeholder="E.g. +92-331-9422954" />
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number (digits only)</label>
+                    <input type="text" id="aWhatsapp" required placeholder="E.g. 923319422954" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Speciality / Focus Area</label>
+                <input type="text" id="aSpeciality" required placeholder="E.g. Residential & Commercial - E-11" />
+            </div>
+            <div class="form-group">
+                <label>Agent Photo</label>
+                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem;">
+                    <img id="aImgPreview" src="" alt="Agent Photo Preview" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px; display: none; background: rgba(255,255,255,0.05);" />
+                    <div>
+                        <input type="file" id="aImgFile" accept="image/*" style="padding: 0; border: none; background: transparent; cursor: pointer; color: white;" />
+                        <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 0.5rem;">Upload a photo (will be compressed headshot).</p>
+                    </div>
+                </div>
+                <input type="hidden" id="aImg" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline" id="closeAgentModal">Cancel</button>
+                <button type="submit" class="btn-conv">Save Agent</button>
             </div>
         </form>
     </div>

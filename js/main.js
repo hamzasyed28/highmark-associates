@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSearch();
     initCustomSelects();
     renderBlogs();
+    initAdvancedFilters();
 });
 
 // --- Blogs Rendering ---
@@ -77,9 +78,15 @@ const initBrandInfo = () => {
     });
 
     document.querySelectorAll('.conf-address').forEach(el => {
-        if (el.textContent.trim() !== config.contact.address.trim()) {
-            el.textContent = config.contact.address;
+        el.textContent = config.contact.address;
+        if (el.tagName === 'A') {
+            el.href = "https://www.google.com/maps/place/High+Mark+Associates,+F.E.C.H.S.+FECHS+E+11%2F2+E-11,+Islamabad,+44000/data=!4m2!3m1!1s0x38dfbd9ed70ade23:0x10c7b1bbf0f21d43!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjIyLjQYACCenQoqgQEsOTQyNjc3MjcsOTQyOTk1MzIsMTAwNzk2NDk4LDEwMDc5Nzc2MSwxMDA3OTY1MzUsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk2MTlCAlBL&skid=d504259f-5119-4144-952f-fc9b73e2237a";
         }
+    });
+
+    document.querySelectorAll('.conf-email').forEach(el => {
+        el.textContent = config.contact.email;
+        if (el.tagName === 'A') el.href = `mailto:${config.contact.email}`;
     });
 
     document.querySelectorAll('.conf-whatsapp-link').forEach(el => {
@@ -100,7 +107,9 @@ const renderProperties = (filters = 'all') => {
     grid.innerHTML = '';
     
     let filtered;
-    if (filters === 'all') {
+    if (Array.isArray(filters)) {
+        filtered = filters;
+    } else if (filters === 'all') {
         filtered = listings;
     } else if (typeof filters === 'string') {
         filtered = listings.filter(p => p.category === filters);
@@ -117,7 +126,7 @@ const renderProperties = (filters = 'all') => {
         let sectorQuery = "";
         let whatsappQuery = "Hi Highmark Associates, I'm looking for properties";
         
-        if (typeof filters === 'object') {
+        if (typeof filters === 'object' && !Array.isArray(filters)) {
             if (filters.type) whatsappQuery += ` like a ${filters.type}`;
             if (filters.sector) {
                 whatsappQuery += ` in ${filters.sector}`;
@@ -162,6 +171,7 @@ const renderProperties = (filters = 'all') => {
                     <span class="badge ${p.category === 'sale' ? 'badge-sale' : 'badge-rent'}">
                         ${p.category === 'sale' ? 'For Sale' : 'For Rent'}
                     </span>
+                    ${p.investmentBadge ? `<span class="badge badge-gold">${p.investmentBadge}</span>` : ''}
                     ${p.tags.map(tag => `<span class="badge badge-accent">${tag}</span>`).join('')}
                 </div>
                 <div class="card-save" onclick="event.stopPropagation();this.textContent = this.textContent === '🤍' ? '❤️' : '🤍'">🤍</div>
@@ -486,3 +496,59 @@ const initAnimations = () => {
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 };
+
+// --- Advanced Filtering for properties.html ---
+const parsePriceToCrore = (priceStr) => {
+    const cleanStr = priceStr.toLowerCase().replace(/pkr/g, '').trim();
+    if (cleanStr.includes('crore')) {
+        return parseFloat(cleanStr.replace(/crore/g, '').trim());
+    }
+    const rawNum = parseFloat(cleanStr.replace(/,/g, '').trim());
+    if (isNaN(rawNum)) return 0;
+    return rawNum / 10000000; // convert to Crore (1 Crore = 10,000,000)
+};
+
+const initAdvancedFilters = () => {
+    const filterApplyBtn = document.getElementById('filterApplyBtn');
+    if (!filterApplyBtn) return;
+
+    filterApplyBtn.addEventListener('click', () => {
+        const type = document.getElementById('fType').value.toLowerCase();
+        const category = document.getElementById('fCategory').value.toLowerCase();
+        const sectorRaw = document.getElementById('fSector').value.toLowerCase();
+        const sector = sectorRaw.split(' ')[0]; // E.g., "e-11"
+        const budgetVal = document.getElementById('fBudget') ? document.getElementById('fBudget').value : "";
+        const sort = document.getElementById('fSort').value;
+
+        let filtered = [...listings];
+
+        if (type) {
+            filtered = filtered.filter(p => p.type.toLowerCase() === type);
+        }
+        
+        if (category && category !== 'all') {
+            filtered = filtered.filter(p => p.category === category);
+        }
+        
+        if (sector) {
+            filtered = filtered.filter(p => p.location.toLowerCase().includes(sector));
+        }
+        
+        if (budgetVal) {
+            const maxBudget = parseFloat(budgetVal); // in Crore
+            filtered = filtered.filter(p => {
+                const priceNum = parsePriceToCrore(p.price);
+                return priceNum <= maxBudget;
+            });
+        }
+
+        if (sort === 'newest') {
+            filtered = filtered.reverse();
+        } else if (sort === 'featured') {
+            filtered = filtered.filter(p => p.featured);
+        }
+
+        renderProperties(filtered);
+    });
+};
+

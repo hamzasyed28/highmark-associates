@@ -1,10 +1,14 @@
 import { listings as defaultListings } from './listings.js';
 import { config as defaultConfig } from './config.js';
 import { blogs as defaultBlogs } from './blogs.js';
+import { agents as defaultAgents } from './agents.js';
+import { ceo as defaultCeo } from './ceo.js';
 
 let listings = JSON.parse(localStorage.getItem('hm_listings')) || defaultListings;
 let config = JSON.parse(localStorage.getItem('hm_config')) || defaultConfig;
 let blogs = JSON.parse(localStorage.getItem('hm_blogs')) || defaultBlogs;
+let agents = JSON.parse(localStorage.getItem('hm_agents')) || defaultAgents;
+let ceo = JSON.parse(localStorage.getItem('hm_ceo')) || defaultCeo;
 
 // Migrate old WhatsApp/Phone numbers if they are stored in localStorage
 if (config && config.contact && (
@@ -29,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initForms();
     initExport();
     renderAdminBlogs();
+    renderAdminAgents();
+    initCeoForm();
+    initAgentForm();
     initCustomSelects();
 });
 
@@ -288,7 +295,61 @@ const initForms = () => {
         localStorage.setItem('hm_config', JSON.stringify(config));
         alert('Credentials Updated Successfully!');
     });
+
+    // --- Blog Form Handlers ---
+    const bimgFileInput = document.getElementById('bimgFile');
+    const bimgPreview   = document.getElementById('bimgPreview');
+    const bHiddenImg    = document.getElementById('bimg');
+
+    bimgFileInput?.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const compressed = await compressImage(file);
+                bHiddenImg.value = compressed;
+                bimgPreview.src = compressed;
+                bimgPreview.style.display = 'block';
+            } catch(err) {
+                console.error(err);
+                alert('Image compression failed');
+            }
+        }
+    });
+
+    document.getElementById('addBlogBtn')?.addEventListener('click', () => {
+        document.getElementById('blogForm').reset();
+        document.getElementById('bEditId').value = '';
+        if (bimgPreview) { bimgPreview.style.display = 'none'; bimgPreview.src = ''; }
+        if (bHiddenImg) bHiddenImg.value = '';
+        document.getElementById('bModalTitle').textContent = 'Add New Blog';
+        document.getElementById('blogModal').classList.add('open');
+    });
+
+    document.getElementById('closeBlogModal')?.addEventListener('click', () => {
+        document.getElementById('blogModal').classList.remove('open');
+    });
+
+    document.getElementById('blogForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const editId = document.getElementById('bEditId').value;
+        const newBlog = {
+            id: editId || `blog_${Date.now()}`,
+            title: document.getElementById('btitle').value,
+            content: document.getElementById('bcontent').value,
+            image: bHiddenImg?.value || '',
+            date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+            excerpt: document.getElementById('bcontent').value.substring(0, 120) + '...'
+        };
+        if (editId) {
+            blogs = blogs.map(item => item.id == editId ? newBlog : item);
+        } else {
+            blogs.push(newBlog);
+        }
+        saveBlogsAndRefresh();
+        document.getElementById('blogModal').classList.remove('open');
+    });
 };
+
 
 // --- Blogs CRUD (standalone, called after DOM is ready) ---
 const renderAdminBlogs = () => {
@@ -368,6 +429,18 @@ const initExport = () => {
         const content = `export const blogs = ${JSON.stringify(blogs, null, 2)};`;
         preview.value = content;
         downloadFile('blogs.js', content);
+    });
+
+    document.getElementById('exportAgents')?.addEventListener('click', () => {
+        const content = `export const agents = ${JSON.stringify(agents, null, 2)};`;
+        preview.value = content;
+        downloadFile('agents.js', content);
+    });
+
+    document.getElementById('exportCeo')?.addEventListener('click', () => {
+        const content = `export const ceo = ${JSON.stringify(ceo, null, 2)};`;
+        preview.value = content;
+        downloadFile('ceo.js', content);
     });
 };
 
@@ -479,5 +552,173 @@ const initCustomSelects = () => {
 
     document.addEventListener('click', () => {
         document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+    });
+};
+
+// --- CEO Management ---
+const initCeoForm = () => {
+    const form = document.getElementById('ceoForm');
+    if (!form) return;
+    
+    // Fill values
+    document.getElementById('ceoNameInput').value = ceo.name || "";
+    document.getElementById('ceoTitleInput').value = ceo.designation || "";
+    document.getElementById('ceoBioInput').value = ceo.bio || "";
+    
+    const imgPreview = document.getElementById('ceoImgPreview');
+    const hiddenImg = document.getElementById('ceoImgInput');
+    hiddenImg.value = ceo.image || "";
+    if (ceo.image) {
+        imgPreview.src = ceo.image;
+        imgPreview.style.display = 'block';
+    }
+    
+    // Photo upload
+    document.getElementById('ceoImgFileInput').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const compressed = await compressImage(file);
+                hiddenImg.value = compressed;
+                imgPreview.src = compressed;
+                imgPreview.style.display = 'block';
+            } catch(err) {
+                console.error(err);
+                alert('Image compression failed');
+            }
+        }
+    });
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        ceo.name = document.getElementById('ceoNameInput').value;
+        ceo.designation = document.getElementById('ceoTitleInput').value;
+        ceo.bio = document.getElementById('ceoBioInput').value;
+        ceo.image = hiddenImg.value;
+        
+        localStorage.setItem('hm_ceo', JSON.stringify(ceo));
+        alert('CEO details saved successfully!');
+    });
+};
+
+// --- Agents Management ---
+const renderAdminAgents = () => {
+    const body = document.getElementById('agentsBody');
+    if (!body) return;
+    body.innerHTML = '';
+    
+    agents.forEach(a => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${a.image ? `<img src="${a.image}" class="img-preview" />` : '<span style="font-size:1.5rem;">👤</span>'}</td>
+            <td><strong>${a.name}</strong></td>
+            <td>${a.title}</td>
+            <td>${a.phone}</td>
+            <td>${a.whatsapp}</td>
+            <td><small>${a.speciality}</small></td>
+            <td>
+                <button class="btn-action btn-edit" onclick="window.editAgent(${a.id})">Edit</button>
+                <button class="btn-action btn-delete" onclick="window.deleteAgent(${a.id})">Delete</button>
+            </td>
+        `;
+        body.appendChild(tr);
+    });
+};
+
+const saveAgentsAndRefresh = () => {
+    localStorage.setItem('hm_agents', JSON.stringify(agents));
+    renderAdminAgents();
+};
+
+window.editAgent = (id) => {
+    const a = agents.find(item => item.id === id);
+    if (!a) return;
+    
+    document.getElementById('agentEditId').value = a.id;
+    document.getElementById('aName').value = a.name;
+    document.getElementById('aTitle').value = a.title;
+    document.getElementById('aPhone').value = a.phone;
+    document.getElementById('aWhatsapp').value = a.whatsapp;
+    document.getElementById('aSpeciality').value = a.speciality;
+    
+    const hiddenImg = document.getElementById('aImg');
+    const preview = document.getElementById('aImgPreview');
+    hiddenImg.value = a.image || "";
+    if (a.image) {
+        preview.src = a.image;
+        preview.style.display = 'block';
+    } else {
+        preview.src = "";
+        preview.style.display = 'none';
+    }
+    
+    document.getElementById('agentModalTitle').textContent = "Edit Team Agent";
+    document.getElementById('agentModal').classList.add('open');
+};
+
+window.deleteAgent = (id) => {
+    if (confirm('Are you sure you want to delete this agent?')) {
+        agents = agents.filter(item => item.id !== id);
+        saveAgentsAndRefresh();
+    }
+};
+
+const initAgentForm = () => {
+    const form = document.getElementById('agentForm');
+    if (!form) return;
+    
+    // File handler
+    document.getElementById('aImgFile').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const compressed = await compressImage(file);
+                document.getElementById('aImg').value = compressed;
+                document.getElementById('aImgPreview').src = compressed;
+                document.getElementById('aImgPreview').style.display = 'block';
+            } catch(err) {
+                console.error(err);
+                alert('Image compression failed');
+            }
+        }
+    });
+    
+    // Open modal
+    document.getElementById('addAgentBtn')?.addEventListener('click', () => {
+        form.reset();
+        document.getElementById('agentEditId').value = "";
+        document.getElementById('aImg').value = "";
+        document.getElementById('aImgPreview').style.display = 'none';
+        document.getElementById('aImgPreview').src = "";
+        document.getElementById('agentModalTitle').textContent = "Add Team Agent";
+        document.getElementById('agentModal').classList.add('open');
+    });
+    
+    // Close modal
+    document.getElementById('closeAgentModal')?.addEventListener('click', () => {
+        document.getElementById('agentModal').classList.remove('open');
+    });
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const editId = document.getElementById('agentEditId').value;
+        const newAgent = {
+            id: editId ? parseInt(editId) : Date.now(),
+            name: document.getElementById('aName').value,
+            title: document.getElementById('aTitle').value,
+            phone: document.getElementById('aPhone').value,
+            whatsapp: document.getElementById('aWhatsapp').value,
+            speciality: document.getElementById('aSpeciality').value,
+            image: document.getElementById('aImg').value
+        };
+        
+        if (editId) {
+            agents = agents.map(item => item.id === parseInt(editId) ? newAgent : item);
+        } else {
+            agents.push(newAgent);
+        }
+        
+        saveAgentsAndRefresh();
+        document.getElementById('agentModal').classList.remove('open');
     });
 };
