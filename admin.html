@@ -52,13 +52,14 @@
     <main class="admin-main">
         <header class="admin-header">
             <h2 id="tabTitle">Manage Property Listings</h2>
-            <div class="header-actions">
-                <button class="btn-conv" id="addListingBtn">+ Add New Listing</button>
-            </div>
         </header>
 
         <!-- Tab: Listings -->
         <section id="listingsTab" class="admin-tab-content active">
+            <header class="admin-header" style="margin-bottom:2rem; padding-bottom:1rem; border-bottom:none; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="color:var(--text-white); margin: 0;">All Properties</h3>
+                <button class="btn-conv" id="addListingBtn">+ Add New Listing</button>
+            </header>
             <div class="table-container">
                 <table id="listingsTable">
                     <thead>

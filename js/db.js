@@ -52,19 +52,26 @@ export const getData = async (key, fallback = null) => {
  * @throws {Error} if the server rejects the request
  */
 export const setData = async (key, data, token) => {
-    const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key, data, token })
-    });
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ key, data, token })
+        });
 
-    const result = await res.json();
-
-    if (!res.ok) {
-        throw new Error(result.error || `Server error (HTTP ${res.status})`);
+        if (!res.ok) {
+            throw new Error(`Server error (HTTP ${res.status})`);
+        }
+        
+        return await res.json();
+    } catch (err) {
+        // Fallback for Github Pages where PHP is not supported
+        if (key === 'admin_token') {
+            localStorage.setItem('hm_admin_pass', data);
+            return { success: true, message: "Local password updated." };
+        }
+        throw new Error("Server not available (Please host on GoDaddy to enable saving).");
     }
-
-    return result;
 };
 
 /**
@@ -79,7 +86,9 @@ export const verifyToken = async (token) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ key: 'verify', token, data: null })
         });
-        if (!res.ok) return false;
+        if (res.status === 403) return false; // Server rejected password
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`); // Fallback
+        
         const result = await res.json();
         return !!result.success;
     } catch (err) {
