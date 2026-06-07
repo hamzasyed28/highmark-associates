@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/admin.css?v=1.7" />
 </head>
 <body class="admin-body">
+<div id="adminLoadingBar" class="loading-bar" style="display: none;"></div>
 
 <!-- Login Overly -->
 <div id="loginOverlay" class="login-overlay">
@@ -38,6 +39,7 @@
         <nav class="admin-nav">
             <button class="admin-nav-item active" data-tab="listingsTab">🏠 <span class="nav-text">Manage Listings</span></button>
             <button class="admin-nav-item" data-tab="configTab">📱 <span class="nav-text">Manage Credentials</span></button>
+            <button class="admin-nav-item" data-tab="passwordTab">🔐 <span class="nav-text">Change Password</span></button>
             <button class="admin-nav-item" data-tab="ceoTab">👤 <span class="nav-text">Manage CEO</span></button>
             <button class="admin-nav-item" data-tab="agentsTab">👥 <span class="nav-text">Manage Agents</span></button>
             <button class="admin-nav-item" data-tab="blogsTab">📰 <span class="nav-text">Manage Blogs</span></button>
@@ -126,6 +128,34 @@
             </div>
         </section>
 
+        <!-- Tab: Password -->
+        <section id="passwordTab" class="admin-tab-content">
+            <div class="config-grid" style="max-width: 600px; margin: 0 auto;">
+                <div class="config-card">
+                    <h3>🔐 Change Admin Password</h3>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.6;">
+                        The default password is <code style="background: rgba(184,150,62,0.15); color: var(--gold); padding: 2px 6px; border-radius: 3px;">admin123</code>. Change it here to something secure.
+                    </p>
+                    <form id="changePassForm">
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="currentPass" required placeholder="Enter current password" />
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="newPass" required placeholder="Min 6 characters" />
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="confirmPass" required placeholder="Repeat new password" />
+                        </div>
+                        <div id="passChangeMsg" class="pass-msg" style="display: none;"></div>
+                        <button type="submit" class="btn-conv" style="width: 100%;">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
         <!-- Tab: CEO -->
         <section id="ceoTab" class="admin-tab-content">
             <div class="config-grid">
@@ -189,16 +219,38 @@
 
         <!-- Tab: Export -->
         <section id="exportTab" class="admin-tab-content">
+            <!-- Why mobile doesn't update banner -->
+            <div class="export-info-banner">
+                <div class="export-info-icon">📱</div>
+                <div class="export-info-body">
+                    <h4>Why don't changes show on phone / other devices?</h4>
+                    <p>Changes you make in this admin panel are saved only to <strong>this browser's local storage</strong>. They are <em>not</em> automatically synced to your phone or any other device. To make your changes go live everywhere, follow these 3 steps:</p>
+                    <ol class="deploy-steps">
+                        <li><strong>Step 1 — Download files:</strong> Click all the download buttons below to get the updated <code>.js</code> files.</li>
+                        <li><strong>Step 2 — Replace files in your project:</strong> Copy the downloaded files into the <code>js/</code> folder of your project on your computer, replacing the old ones.</li>
+                        <li><strong>Step 3 — Push to GitHub:</strong> Commit and push to GitHub. GitHub Pages will update within 1–2 minutes and changes will appear everywhere — desktop, mobile, everywhere.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Migration Card -->
+            <div class="export-card" style="margin-bottom: 2rem; border-color: var(--gold);">
+                <span class="overline" style="color: var(--gold);">Instant Live Setup (Recommended)</span>
+                <h3>📤 Migrate Local Data to Server</h3>
+                <p>If you have existing listings, agents, blogs, or credentials saved in this browser's local storage (from the old system), click this button to upload them directly to your server. This will make your changes live on all devices (mobile and desktop) instantly, without needing to upload files to GitHub!</p>
+                <button class="btn-conv" id="migrateBtn" style="background: var(--gold); color: var(--bg-dark); font-weight: 600;">⚡ Migrate Data to Server</button>
+            </div>
+
             <div class="export-card">
                 <span class="overline">Prepare for Deployment</span>
                 <h3>Generate Code Files</h3>
-                <p>After editing your website, click the buttons below to generate and download the updated code. Simply replace the old files in your hosting to make the changes live for everyone.</p>
+                <p>Click each button to download the updated file. Replace the matching file in your <code>js/</code> folder, then push to GitHub.</p>
                 <div class="export-actions" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button class="btn-conv" id="exportListings">Download listings.js</button>
-                    <button class="btn-conv" id="exportConfig">Download config.js</button>
-                    <button class="btn-conv" id="exportBlogs">Download blogs.js</button>
-                    <button class="btn-conv" id="exportAgents">Download agents.js</button>
-                    <button class="btn-conv" id="exportCeo">Download ceo.js</button>
+                    <button class="btn-conv" id="exportListings">⬇ Download listings.js</button>
+                    <button class="btn-conv" id="exportConfig">⬇ Download config.js</button>
+                    <button class="btn-conv" id="exportBlogs">⬇ Download blogs.js</button>
+                    <button class="btn-conv" id="exportAgents">⬇ Download agents.js</button>
+                    <button class="btn-conv" id="exportCeo">⬇ Download ceo.js</button>
                 </div>
                 <div class="export-preview">
                     <label>Preview Updated Code</label>

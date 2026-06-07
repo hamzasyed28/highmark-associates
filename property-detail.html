@@ -453,8 +453,9 @@
 
 <script type="module" src="./js/main.js?v=3.0"></script>
 <script type="module">
-import { listings } from './js/listings.js';
-import { config } from './js/config.js';
+import { listings as defaultListings } from './js/listings.js';
+import { config as defaultConfig } from './js/config.js';
+import { getData } from './js/db.js';
 
 // ── Gallery switch ──
 window.setMainImg = (src) => {
@@ -472,10 +473,15 @@ document.querySelectorAll('.detail-tab').forEach(tab => {
   });
 });
 
+// Load dynamic data from PHP server
+const [data, cfg] = await Promise.all([
+  getData('listings', defaultListings),
+  getData('config', defaultConfig)
+]);
+
 // ── Load property from URL param or first listing ──
 const params = new URLSearchParams(window.location.search);
 const propId = parseInt(params.get('id'));
-const data = JSON.parse(localStorage.getItem('hm_listings')) || listings;
 const property = data.find(p => p.id === propId) || data[0];
 
 if (property) {
@@ -516,7 +522,6 @@ if (property) {
   }
 
   // WhatsApp on viewing form
-  const cfg = JSON.parse(localStorage.getItem('hm_config')) || config;
   const waLink = cfg.social?.whatsappLink || 'https://wa.me/923319422954';
   document.querySelectorAll('.conf-whatsapp-link').forEach(el => {
     if (el.tagName === 'A') el.href = waLink;
@@ -525,7 +530,7 @@ if (property) {
 
 // ── Similar Properties ──
 const grid = document.getElementById('similarGrid');
-const otherListings = (JSON.parse(localStorage.getItem('hm_listings')) || listings)
+const otherListings = data
   .filter(p => p.id !== (property?.id))
   .slice(0, 3);
 

@@ -1,26 +1,19 @@
 import { listings as defaultListings } from './listings.js';
-import { config as defaultConfig } from './config.js';
-import { blogs as defaultBlogs } from './blogs.js';
+import { config as defaultConfig }   from './config.js';
+import { blogs as defaultBlogs }     from './blogs.js';
+import { getData }                   from './db.js';
 
-let listings = JSON.parse(localStorage.getItem('hm_listings')) || defaultListings;
-let config = JSON.parse(localStorage.getItem('hm_config')) || defaultConfig;
-let blogs = JSON.parse(localStorage.getItem('hm_blogs')) || defaultBlogs;
+let listings, config, blogs;
 
-// Migrate old WhatsApp/Phone numbers if they are stored in localStorage
-if (config && config.contact && (
-    (config.contact.whatsapp && config.contact.whatsapp.includes("3178090809")) ||
-    (config.contact.phone && config.contact.phone.includes("3178090809")) ||
-    (config.social && config.social.whatsappLink && config.social.whatsappLink.includes("3178090809"))
-)) {
-    config.contact.phone = "+92-331-9422954";
-    config.contact.whatsapp = "+923319422954";
-    if (config.social) {
-        config.social.whatsappLink = "https://wa.me/923319422954";
-    }
-    localStorage.setItem('hm_config', JSON.stringify(config));
-}
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Fetch all data from server (falls back to static files if server unavailable)
+    [listings, config, blogs] = await Promise.all([
+        getData('listings', defaultListings),
+        getData('config',   defaultConfig),
+        getData('blogs',    defaultBlogs),
+    ]);
+
     initBrandInfo();
     initPropertyGrid();
     initNavbar();

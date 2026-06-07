@@ -1,32 +1,21 @@
-import { blogs as defaultBlogs } from './blogs.js';
+import { blogs as defaultBlogs }   from './blogs.js';
 import { config as defaultConfig } from './config.js';
+import { getData }                 from './db.js';
 
-let config = JSON.parse(localStorage.getItem('hm_config')) || defaultConfig;
-let blogs = JSON.parse(localStorage.getItem('hm_blogs')) || defaultBlogs;
+let config, blogs;
 
-// Migrate old WhatsApp/Phone numbers if they are stored in localStorage
-if (config && config.contact && (
-    (config.contact.whatsapp && config.contact.whatsapp.includes("3178090809")) ||
-    (config.contact.phone && config.contact.phone.includes("3178090809")) ||
-    (config.social && config.social.whatsappLink && config.social.whatsappLink.includes("3178090809"))
-)) {
-    config.contact.phone = "+92-331-9422954";
-    config.contact.whatsapp = "+923319422954";
-    if (config.social) {
-        config.social.whatsappLink = "https://wa.me/923319422954";
-    }
-    localStorage.setItem('hm_config', JSON.stringify(config));
-}
+document.addEventListener('DOMContentLoaded', async () => {
+    [blogs, config] = await Promise.all([
+        getData('blogs',  defaultBlogs),
+        getData('config', defaultConfig),
+    ]);
 
-document.addEventListener('DOMContentLoaded', () => {
     initBrandInfo();
     initNavbar();
-    
-    // Check which page we are on
-    const path = window.location.pathname;
+
+    const path       = window.location.pathname;
     const isPostPage = path.includes('blog-post.html') || window.location.search.includes('id=');
-    const isBlogArchive = path.includes('blog.html') || (!isPostPage && path.endsWith('/blog'));
-    
+
     if (isPostPage) {
         renderBlogPost();
     } else {

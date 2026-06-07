@@ -413,9 +413,10 @@
 <script type="module" src="./js/main.js?v=3.1"></script>
 <script type="module">
   import { agents as defaultAgents } from './js/agents.js';
+  import { getData } from './js/db.js';
 
-  // Use localStorage agents if available (from admin edits), else fall back to defaults
-  let agents = JSON.parse(localStorage.getItem('hm_agents')) || defaultAgents;
+  // Use dynamic agents from PHP server
+  const agents = await getData('agents', defaultAgents);
 
   function renderAgents() {
     const grid = document.getElementById('agentsGrid');
@@ -449,7 +450,8 @@
     `).join('');
   }
 
-  document.addEventListener('DOMContentLoaded', renderAgents);
+  // Render agents once we have loaded the data
+  renderAgents();
 </script>
 <script>
   // FAQ accordion

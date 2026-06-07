@@ -485,22 +485,23 @@
 </div>
 
 <script type="module" src="./js/main.js?v=3.1"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Load CEO data from admin localStorage
-    const ceoData = JSON.parse(localStorage.getItem('hm_ceo') || 'null');
-    if (ceoData) {
-      if (ceoData.name) document.getElementById('ceoName').textContent = ceoData.name;
-      if (ceoData.designation) document.getElementById('ceoTitle').textContent = ceoData.designation;
-      if (ceoData.bio) document.getElementById('ceoMessage').innerHTML = `<p>${ceoData.bio.replace(/\n/g, '</p><p style="margin-top:1.2rem;">')}</p>`;
-      if (ceoData.image) {
-        document.getElementById('ceoPlaceholder').style.display = 'none';
-        document.getElementById('ceoImgFrame').innerHTML = `<img src="${ceoData.image}" alt="${ceoData.name}" style="width:100%;height:100%;object-fit:cover;object-position:top;" /><div class="ceo-badge">Founder & CEO</div>`;
-      } else {
-        document.getElementById('ceoBadge').style.display = 'block';
-      }
+<script type="module">
+  import { ceo as defaultCeo } from './js/ceo.js';
+  import { getData } from './js/db.js';
+
+  // Load CEO data from PHP server
+  const ceoData = await getData('ceo', defaultCeo);
+  if (ceoData) {
+    if (ceoData.name) document.getElementById('ceoName').textContent = ceoData.name;
+    if (ceoData.designation) document.getElementById('ceoTitle').textContent = ceoData.designation;
+    if (ceoData.bio) document.getElementById('ceoMessage').innerHTML = `<p>${ceoData.bio.replace(/\n/g, '</p><p style="margin-top:1.2rem;">')}</p>`;
+    if (ceoData.image) {
+      document.getElementById('ceoPlaceholder').style.display = 'none';
+      document.getElementById('ceoImgFrame').innerHTML = `<img src="${ceoData.image}" alt="${ceoData.name}" style="width:100%;height:100%;object-fit:cover;object-position:top;" /><div class="ceo-badge">Founder & CEO</div>`;
+    } else {
+      document.getElementById('ceoBadge').style.display = 'block';
     }
-  });
+  }
 </script>
 </body>
 </html>
