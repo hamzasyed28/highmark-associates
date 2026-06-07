@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,9 +10,123 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/style.css?v=3.0" />
+  <style>
+    /* ── Verification Grid (2-col: text + image) ── */
+    .verification-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .verification-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* ── What We Verify checklist grid ── */
+    .verification-checks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 640px) {
+      .verification-checks { grid-template-columns: 1fr; }
+    }
+
+    .verify-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--gold);
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .verify-item:hover {
+      background: rgba(184,150,62,0.06);
+      border-left-color: var(--gold);
+    }
+    .verify-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Process Steps ── */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .process-grid { grid-template-columns: 1fr; }
+    }
+
+    .process-step {
+      padding: 2.5rem 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      position: relative;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .process-step:hover {
+      border-color: rgba(184,150,62,0.4);
+      transform: translateY(-4px);
+    }
+    .process-step::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .process-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: rgba(184,150,62,0.15);
+      font-weight: 300;
+      line-height: 1;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.75rem;
+    }
+    .process-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .process-desc {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      line-height: 1.75;
+    }
+
+    /* ── Risk highlight cards ── */
+    .risk-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: rgba(184,150,62,0.06);
+      border: 1px solid rgba(184,150,62,0.15);
+      border-radius: var(--radius);
+      transition: background 0.25s;
+    }
+    .risk-card:hover { background: rgba(184,150,62,0.1); }
+    .risk-card h4 { font-size: 0.9rem; color: var(--white); margin-bottom: 0.3rem; }
+    .risk-card p { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; }
+  </style>
 </head>
 <body>
 
+<!-- MOBILE NAV -->
 <nav class="mobile-nav" id="mobileNav">
   <span class="mobile-close">✕</span>
   <a href="index.html">Home</a>
@@ -24,6 +138,7 @@
   <a href="contact.html">Contact</a>
 </nav>
 
+<!-- NAVBAR -->
 <header>
   <nav class="navbar" id="navbar">
     <div class="container flex-between">
@@ -33,7 +148,7 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="properties.html">Properties</a></li>
-        <li><a href="services.html">Services</a></li>
+        <li><a href="services.html" style="color:var(--gold);">Services</a></li>
         <li><a href="areas.html">Areas Guide</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="blog.html">Blog</a></li>
@@ -49,7 +164,9 @@
 <section style="padding-top:calc(var(--nav-height) + 4rem);padding-bottom:4rem;background:var(--bg-secondary);">
   <div class="container">
     <nav class="page-hero__breadcrumb">
-      <a href="index.html">Home</a> <span>/</span> <span>Property Verification</span>
+      <a href="index.html">Home</a> <span>/</span>
+      <a href="services.html">Services</a> <span>/</span>
+      <span>Property Verification</span>
     </nav>
     <span class="overline">Safe Investment</span>
     <h1 style="font-size:clamp(3rem,6vw,5rem);font-weight:400;margin:1rem 0 1.5rem;">Property Verification<br><em style="color:var(--gold);">&amp; Legal Assistance</em></h1>
@@ -68,31 +185,31 @@
         <p style="color:var(--text-dim);line-height:1.85;font-size:0.95rem;margin-bottom:1.5rem;">Pakistan's property market can be complex, with risks including fraudulent documentation, disputed ownership, undisclosed liabilities, and properties sold without proper CDA approvals.</p>
         <p style="color:var(--text-dim);line-height:1.85;font-size:0.95rem;margin-bottom:2rem;">Our verification team reviews every document thoroughly before any transaction proceeds, giving you complete confidence in your investment decision.</p>
         <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.25rem;background:rgba(184,150,62,0.06);border:1px solid rgba(184,150,62,0.15);border-radius:var(--radius);">
+          <div class="risk-card">
             <span style="font-size:1.5rem;flex-shrink:0;">🛡️</span>
             <div>
-              <h4 style="font-size:0.9rem;color:var(--white);margin-bottom:0.3rem;">Risk Prevention</h4>
-              <p style="font-size:0.83rem;color:var(--text-dim);line-height:1.6;">Identify and avoid fraudulent or disputed properties before investing your hard-earned money.</p>
+              <h4>Risk Prevention</h4>
+              <p>Identify and avoid fraudulent or disputed properties before investing your hard-earned money.</p>
             </div>
           </div>
-          <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.25rem;background:rgba(184,150,62,0.06);border:1px solid rgba(184,150,62,0.15);border-radius:var(--radius);">
+          <div class="risk-card">
             <span style="font-size:1.5rem;flex-shrink:0;">✅</span>
             <div>
-              <h4 style="font-size:0.9rem;color:var(--white);margin-bottom:0.3rem;">Legal Clarity</h4>
-              <p style="font-size:0.83rem;color:var(--text-dim);line-height:1.6;">Ensure the property has clear title, approved documentation, and no outstanding disputes or liabilities.</p>
+              <h4>Legal Clarity</h4>
+              <p>Ensure the property has clear title, approved documentation, and no outstanding disputes or liabilities.</p>
             </div>
           </div>
-          <div style="display:flex;align-items:flex-start;gap:1rem;padding:1.25rem;background:rgba(184,150,62,0.06);border:1px solid rgba(184,150,62,0.15);border-radius:var(--radius);">
+          <div class="risk-card">
             <span style="font-size:1.5rem;flex-shrink:0;">💼</span>
             <div>
-              <h4 style="font-size:0.9rem;color:var(--white);margin-bottom:0.3rem;">Investor Protection</h4>
-              <p style="font-size:0.83rem;color:var(--text-dim);line-height:1.6;">Especially critical for overseas Pakistanis who cannot personally inspect documentation and need trusted local verification.</p>
+              <h4>Investor Protection</h4>
+              <p>Especially critical for overseas Pakistanis who cannot personally inspect documentation and need trusted local verification.</p>
             </div>
           </div>
         </div>
       </div>
       <div style="position:relative;height:520px;border-radius:var(--radius);overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=700&q=80" alt="Property verification documents" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=700&q=80" alt="Property verification documents Islamabad" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);"></div>
         <div style="position:absolute;bottom:2.5rem;left:2.5rem;right:2.5rem;background:rgba(16,17,18,0.9);backdrop-filter:blur(10px);border:1px solid rgba(184,150,62,0.2);padding:2rem;border-radius:var(--radius);">
           <div style="font-family:var(--font-display);font-size:3rem;color:var(--gold);font-weight:300;line-height:1;">100%</div>
@@ -112,7 +229,7 @@
       <h2>What We Verify</h2>
       <p>Our comprehensive checklist covers every aspect of property documentation and legal standing.</p>
     </div>
-    <div class="verification-checks animate-on-scroll" style="max-width:900px;margin:0 auto;grid-template-columns:repeat(2,1fr);">
+    <div class="verification-checks animate-on-scroll" style="max-width:900px;margin:0 auto;">
       <div class="verify-item"><span class="verify-icon">📄</span> Ownership Records &amp; Title Deed</div>
       <div class="verify-item"><span class="verify-icon">🏛️</span> CDA Approvals &amp; Allotment Letters</div>
       <div class="verify-item"><span class="verify-icon">📋</span> NOCs &amp; Government Permissions</div>
@@ -158,7 +275,7 @@
   </div>
 </section>
 
-<!-- CTA -->
+<!-- FINAL CTA -->
 <section class="final-cta">
   <div class="container">
     <span class="overline">Get Verified</span>
@@ -174,27 +291,76 @@
   </div>
 </section>
 
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-links">
+        <a href="index.html" class="logo">
+          <span class="logo-main">HIGHMARK</span>
+          <span class="logo-sub">ASSOCIATES</span>
+        </a>
+        <p class="footer-about">Islamabad's most trusted real estate agency specializing in CDA-approved properties with over 15 years of excellence.</p>
+        <div style="display:flex;gap:0.75rem;margin-top:1.5rem;">
+          <a href="#" class="footer__social">f</a>
+          <a href="#" class="footer__social">in</a>
+          <a href="#" class="footer__social">ig</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="properties.html">Properties</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Sectors</h4>
+        <ul>
+          <li><a href="areas.html#e11">E-11 Islamabad</a></li>
+          <li><a href="areas.html#d12">D-12 Islamabad</a></li>
+          <li><a href="areas.html#dha">DHA Phase 2</a></li>
+          <li><a href="areas.html#f10">F-10 / F-11</a></li>
+          <li><a href="areas.html">Bahria Town</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <a href="https://www.google.com/maps/place/High+Mark+Associates,+F.E.C.H.S.+FECHS+E+11%2F2+E-11,+Islamabad,+44000/" target="_blank" class="conf-address" style="color:var(--text-dim);text-decoration:none;">E-11/2 Markaz, Islamabad</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <a href="tel:+923319422954" class="conf-phone" style="color:var(--text-dim);text-decoration:none;">+92-331-9422954</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">✉</span>
+          <a href="mailto:info@highmarkrealestate.com" class="conf-email" style="color:var(--text-dim);text-decoration:none;">info@highmarkrealestate.com</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <p style="color:var(--text-muted);font-size:0.78rem;">© 2026 Highmark Associates. All rights reserved.</p>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="privacy.html" style="font-size:0.78rem;color:var(--text-muted);">Privacy Policy</a>
+        <a href="terms.html" style="font-size:0.78rem;color:var(--text-muted);">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
 <div class="whatsapp-float">
   <div class="wa-label">Verify Your Property</div>
-  <a href="https://wa.me/923319422954" target="_blank" class="wa-btn conf-whatsapp-link">
+  <a href="https://wa.me/923319422954" target="_blank" class="wa-btn conf-whatsapp-link" aria-label="Chat on WhatsApp">
     <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
-  const hamburger = document.querySelector('.nav-hamburger');
-  const mobileNav = document.getElementById('mobileNav');
-  const closeBtn = document.querySelector('.mobile-close');
-  hamburger?.addEventListener('click', () => { mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; });
-  closeBtn?.addEventListener('click', () => { mobileNav.classList.remove('open'); document.body.style.overflow = ''; });
-  document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) el.classList.add('visible'); }), {threshold:0.08});
-    obs.observe(el);
-  });
-});
-</script>
+<script type="module" src="./js/main.js?v=3.2"></script>
 </body>
 </html>

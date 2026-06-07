@@ -83,7 +83,10 @@ const initTabs = () => {
             
             item.classList.add('active');
             document.getElementById(item.dataset.tab).classList.add('active');
-            tabTitle.textContent = item.textContent.replace('🏠 ', '').replace('📱 ', '').replace('💾 ', '').replace('📰 ', '');
+            const textNode = item.querySelector('.nav-text');
+            if (tabTitle) {
+                tabTitle.textContent = textNode ? textNode.textContent : item.textContent;
+            }
         });
     });
 };
@@ -96,12 +99,12 @@ const renderAdminListings = () => {
     listings.forEach(p => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><img src="${p.image}" class="img-preview" /></td>
-            <td><strong>${p.title}</strong><br><small>${p.location}</small></td>
-            <td><span class="status-pill">${p.type}</span></td>
-            <td>${p.price}</td>
-            <td>${p.category.toUpperCase()}</td>
-            <td>
+            <td data-label="Image"><img src="${p.image}" class="img-preview" /></td>
+            <td data-label="Title"><strong>${p.title}</strong><br><small>${p.location}</small></td>
+            <td data-label="Type"><span class="status-pill">${p.type}</span></td>
+            <td data-label="Price">${p.price}</td>
+            <td data-label="Category">${p.category.toUpperCase()}</td>
+            <td data-label="Actions">
                 <button class="btn-action btn-edit" onclick="window.editListing(${p.id})">Edit</button>
                 <button class="btn-action btn-delete" onclick="window.deleteListing(${p.id})">Delete</button>
             </td>
@@ -360,9 +363,9 @@ const renderAdminBlogs = () => {
     blogs.forEach(b => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><img src="${b.image}" class="img-preview" /></td>
-            <td><strong>${b.title}</strong><br><small>${b.date}</small></td>
-            <td>
+            <td data-label="Image"><img src="${b.image}" class="img-preview" /></td>
+            <td data-label="Title"><strong>${b.title}</strong><br><small>${b.date}</small></td>
+            <td data-label="Actions">
                 <button class="btn-action btn-edit" onclick="window.editBlog('${b.id}')">Edit</button>
                 <button class="btn-action btn-delete" onclick="window.deleteBlog('${b.id}')">Delete</button>
             </td>
@@ -610,13 +613,13 @@ const renderAdminAgents = () => {
     agents.forEach(a => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${a.image ? `<img src="${a.image}" class="img-preview" />` : '<span style="font-size:1.5rem;">👤</span>'}</td>
-            <td><strong>${a.name}</strong></td>
-            <td>${a.title}</td>
-            <td>${a.phone}</td>
-            <td>${a.whatsapp}</td>
-            <td><small>${a.speciality}</small></td>
-            <td>
+            <td data-label="Image">${a.image ? `<img src="${a.image}" class="img-preview" />` : '<span style="font-size:1.5rem;">👤</span>'}</td>
+            <td data-label="Name"><strong>${a.name}</strong></td>
+            <td data-label="Title">${a.title}</td>
+            <td data-label="Phone">${a.phone}</td>
+            <td data-label="WhatsApp">${a.whatsapp}</td>
+            <td data-label="Speciality"><small>${a.speciality}</small></td>
+            <td data-label="Actions">
                 <button class="btn-action btn-edit" onclick="window.editAgent(${a.id})">Edit</button>
                 <button class="btn-action btn-delete" onclick="window.deleteAgent(${a.id})">Delete</button>
             </td>

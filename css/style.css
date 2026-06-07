@@ -795,6 +795,7 @@ footer, .footer { background: var(--bg-darker); padding: 8rem 0 4rem; border-top
   .gallery-thumb { height: 160px; }
   .contact-form-row { grid-template-columns: 1fr; }
   .footer__bottom { flex-direction: column; text-align: center; }
+  .sitemap-link { display: none !important; }
 }
 @media (max-width: 480px) {
   h1 { font-size: 2.2rem !important; }

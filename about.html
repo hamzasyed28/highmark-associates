@@ -469,8 +469,8 @@
     <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
       <p style="color:var(--text-muted);font-size:0.78rem;">© 2026 Highmark Associates. All rights reserved.</p>
       <div style="display:flex;gap:1.5rem;">
-        <a href="#" style="font-size:0.78rem;color:var(--text-muted);">Privacy Policy</a>
-        <a href="#" style="font-size:0.78rem;color:var(--text-muted);">Terms of Service</a>
+        <a href="privacy.html" style="font-size:0.78rem;color:var(--text-muted);">Privacy Policy</a>
+        <a href="terms.html" style="font-size:0.78rem;color:var(--text-muted);">Terms of Service</a>
       </div>
     </div>
   </div>
@@ -487,15 +487,6 @@
 <script type="module" src="./js/main.js?v=3.1"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Navbar scroll
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
-    const hamburger = document.querySelector('.nav-hamburger');
-    const mobileNav = document.getElementById('mobileNav');
-    const closeBtn = document.querySelector('.mobile-close');
-    hamburger?.addEventListener('click', () => { mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; });
-    closeBtn?.addEventListener('click', () => { mobileNav.classList.remove('open'); document.body.style.overflow = ''; });
-
     // Load CEO data from admin localStorage
     const ceoData = JSON.parse(localStorage.getItem('hm_ceo') || 'null');
     if (ceoData) {
@@ -509,12 +500,6 @@
         document.getElementById('ceoBadge').style.display = 'block';
       }
     }
-
-    // Animations
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-      const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) el.classList.add('visible'); }), { threshold: 0.08 });
-      obs.observe(el);
-    });
   });
 </script>
 </body>

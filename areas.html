@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -279,20 +279,6 @@
   </a>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
-  const hamburger = document.querySelector('.nav-hamburger');
-  const mobileNav = document.getElementById('mobileNav');
-  const closeBtn = document.querySelector('.mobile-close');
-  hamburger?.addEventListener('click', () => { mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; });
-  closeBtn?.addEventListener('click', () => { mobileNav.classList.remove('open'); document.body.style.overflow = ''; });
-  document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) el.classList.add('visible'); }), {threshold:0.08});
-    obs.observe(el);
-  });
-});
-</script>
+<script type="module" src="./js/main.js?v=3.2"></script>
 </body>
 </html>

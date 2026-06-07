@@ -403,17 +403,21 @@ const initFilters = () => {
 // --- Navbar & Navigation ---
 const initNavbar = () => {
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 60) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
 
     const hamburger = document.querySelector('.nav-hamburger');
     const mobileNav = document.getElementById('mobileNav');
     const closeBtn = document.querySelector('.mobile-close');
+
+    if (!hamburger || !mobileNav || !closeBtn) return;
 
     const toggleNav = () => {
         mobileNav.classList.toggle('open');
@@ -438,6 +442,8 @@ const initUnitConverter = () => {
     const input = document.getElementById('marlaInput');
     const resultEl = document.getElementById('converterResult');
     const valueEl = document.getElementById('resultValue');
+
+    if (!convertBtn || !input) return;
 
     const convert = () => {
         const marla = parseFloat(input.value);
