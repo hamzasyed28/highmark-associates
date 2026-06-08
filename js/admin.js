@@ -542,6 +542,9 @@ window.editAgent = (id) => {
     document.getElementById('aPhone').value       = a.phone;
     document.getElementById('aWhatsapp').value    = a.whatsapp;
     document.getElementById('aSpeciality').value  = a.speciality;
+    
+    const aPosElem = document.getElementById('aPosition');
+    if(aPosElem) aPosElem.value = a.position || 'top';
 
     const hiddenImg = document.getElementById('aImg');
     const preview   = document.getElementById('aImgPreview');
@@ -582,6 +585,8 @@ const initAgentForm = () => {
         document.getElementById('aImg').value              = '';
         document.getElementById('aImgPreview').style.display = 'none';
         document.getElementById('aImgPreview').src         = '';
+        const aPosElem = document.getElementById('aPosition');
+        if(aPosElem) aPosElem.value = 'top';
         document.getElementById('agentModalTitle').textContent = 'Add Team Agent';
         document.getElementById('agentModal').classList.add('open');
     });
@@ -600,6 +605,7 @@ const initAgentForm = () => {
             phone:      document.getElementById('aPhone').value,
             whatsapp:   document.getElementById('aWhatsapp').value,
             speciality: document.getElementById('aSpeciality').value,
+            position:   document.getElementById('aPosition') ? document.getElementById('aPosition').value : 'top',
             image:      document.getElementById('aImg').value
         };
 

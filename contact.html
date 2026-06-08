@@ -431,7 +431,7 @@
       <div class="agent-card">
         <div class="agent-img-wrap">
           ${agent.image
-            ? `<img src="${agent.image}" alt="${agent.name}" loading="lazy" />`
+            ? `<img src="${agent.image}" alt="${agent.name}" loading="lazy" style="object-position: ${agent.position || 'top'};" />`
             : `<div class="agent-img-placeholder">👤</div>`}
         </div>
         <div class="agent-body">
